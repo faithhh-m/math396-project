@@ -1,0 +1,17 @@
+R_0 = 3.8
+
+sir_model <- function(time, state, parameters) {
+  
+  with(as.list(c(state, parameters)), {
+    
+    N = S + I + R
+    dS <- -beta * S * I
+    dI <-  beta * S * I - gamma * I
+    dR <-                gamma * I
+    
+    return(list(c(dS, dI, dR)))
+  })
+}
+
+init = c(S = 7390, I = 1, R = 0)
+parameters = c(beta = (R_0*0.2)/7391, gamma = 0.2)
