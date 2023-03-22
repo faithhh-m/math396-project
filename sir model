@@ -1,4 +1,8 @@
-sir_model <- function(time, state, parameters) {
+library(ggplot2)
+library(deSolve)
+library(tidyverse)
+
+sir_model <- function(times, state, parameters) {
   
   with(as.list(c(state, parameters)), {
     
@@ -13,3 +17,12 @@ sir_model <- function(time, state, parameters) {
 
 init = c(S = 7390, I = 1, R = 0)
 parameters = c(beta = (3.8*0.2)/7391, gamma = 0.2)
+times = seq(0, 70, length.out = 1000)
+
+out = ode(y = init, times = times, func = sir_model, parms = parameters)
+out = as.data.frame(out)
+
+out_long <- pivot_longer(out, cols = c(2,3,4))
+ggplot(out_long, aes(x=time, y=value, group = name, colour = name)) + geom_line(lwd=2) + theme_minimal() + xlab("Time (days)") + ylab("Number of individuals") +
+  guides(colour=guide_legend(title="Compartment")) + ggtitle("SIR model")
+  
