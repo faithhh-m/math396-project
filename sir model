@@ -2,6 +2,8 @@ library(ggplot2)
 library(deSolve)
 library(tidyverse)
 
+# plot basic SIR model using parameters determined from dataset
+
 sir_model <- function(times, state, parameters) {
   
   with(as.list(c(state, parameters)), {
@@ -26,3 +28,8 @@ out_long <- pivot_longer(out, cols = c(2,3,4))
 ggplot(out_long, aes(x=time, y=value, group = name, colour = name)) + geom_line(lwd=2) + theme_minimal() + xlab("Time (days)") + ylab("Number of individuals") +
   guides(colour=guide_legend(title="Compartment")) + ggtitle("SIR model")
   
+# plot I curve using the data above
+
+infected = pivot_longer(out, cols = c(3))
+ggplot(infected, aes(x=time, y=value, group=name, colour=name)) + geom_line(lwd=2) + theme_minimal() + xlab("Time") + ylab("Number of infected individuals") +
+  guides(colour=guide_legend(title="Compartment")) + ggtitle("SIR model: I curve")
