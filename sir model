@@ -1,9 +1,11 @@
+# load required libraries
 library(ggplot2)
 library(deSolve)
 library(tidyverse)
 
 # plot basic SIR model using parameters determined from dataset
 
+# define the SIR model function
 sir_model <- function(times, state, parameters) {
   
   with(as.list(c(state, parameters)), {
@@ -17,16 +19,27 @@ sir_model <- function(times, state, parameters) {
   })
 }
 
-init = c(S = 7390, I = 1, R = 0)
-parameters = c(beta = (3.8*0.2)/7391, gamma = 0.2)
-times = seq(0, 70, length.out = 1000)
+# set initial conditions and parameters
+init = c(S = 7390, I = 1, R = 0) # set initial numbers of susceptible, infected, and recovered individuals
+parameters = c(beta = (3.8*0.2)/7391, gamma = 0.2) # set the parameters for the model (beta and gamma)
+times = seq(0, 70, length.out = 1000) # create a sequence of time points for solving the model
 
-out = ode(y = init, times = times, func = sir_model, parms = parameters)
-out = as.data.frame(out)
+# solve the SIR model using the defined function
+out = ode(y = init, times = times, func = sir_model, parms = parameters) # solve the SIR model using the initial conditions, time points, model function,
+                                                                         # and parameters
+out = as.data.frame(out) # convert the output to a data frame for easier manipulation
 
+# convert the output data frame from wide to long format from the tidyr package
 out_long <- pivot_longer(out, cols = c(2,3,4))
-ggplot(out_long, aes(x=time, y=value, group = name, colour = name)) + geom_line(lwd=2) + theme_minimal() + xlab("Time (days)") + ylab("Number of individuals") +
-  guides(colour=guide_legend(title="Compartment")) + ggtitle("SIR model")
+
+# create a line plot using ggplot2 package
+ggplot(out_long, aes(x=time, y=value, group = name, colour = name)) + # create ggplot object
+  geom_line(lwd=2) + # add a line to the plot
+  theme_minimal() + # use a minimal theme
+  xlab("Time (days)") + # label the x-axis
+  ylab("Number of individuals") + # label the y-axis
+  guides(colour=guide_legend(title="Compartment")) + # add a legend titled "Compartment" 
+  ggtitle("SIR model") # add a title to the plot
   
 # plot I curve using the data above
 
