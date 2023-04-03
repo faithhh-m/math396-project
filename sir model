@@ -40,9 +40,3 @@ ggplot(out_long, aes(x=time, y=value, group = name, colour = name)) + # create g
   ylab("Number of individuals") + # label the y-axis
   guides(colour=guide_legend(title="Compartment")) + # add a legend titled "Compartment" 
   ggtitle("SIR model") # add a title to the plot
-  
-# plot I curve using the data above
-
-infected = pivot_longer(out, cols = c(3))
-ggplot(infected, aes(x=time, y=value, group=name, colour=name)) + geom_line(lwd=2) + theme_minimal() + xlab("Time") + ylab("Number of infected individuals") +
-  guides(colour=guide_legend(title="Compartment")) + ggtitle("SIR model: I curve")
