@@ -39,4 +39,4 @@ ggplot(out_long, aes(x=time, y=value, group = name, colour = name)) + # create g
   xlab("Time (days)") + # label the x-axis
   ylab("Number of individuals") + # label the y-axis
   guides(colour=guide_legend(title="Compartment")) + # add a legend titled "Compartment" 
-  ggtitle("SIR model") # add a title to the plot
+  ggtitle("SIR model: beta = 1.028e-4, gamma = 0.2") # add a title to the plot
