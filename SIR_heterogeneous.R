@@ -47,8 +47,10 @@ ggplot(out_long, aes(x=time, y=value, group=name, colour=name)) +
 out$total_I = out$I1 + out$I2
 
 out_long = pivot_longer(out, cols=c(4,5))
-ggplot(out_long, aes(x=time, y=total_I, group=name, colour=name)) +
+ggplot(out_long, aes(x=time, y=total_I, group=name, colour='Simulated')) +
     geom_line() +
+    geom_line(data=data, aes(x=nr, y=value, color='Real Data')) +
+    geom_point()
     theme_minimal() +
     xlab("Days Elapsed") +
     ylab("Number of individuals") +
