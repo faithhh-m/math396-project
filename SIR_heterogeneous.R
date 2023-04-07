@@ -1,9 +1,9 @@
 library(ggplot2)
 library(deSolve)
 library(tidyverse)
+library("outbreaks")
 
 # SIR model with population structure
-
 sir_model <- function(times, state, parameters) {
     
     with(as.list(c(state, parameters)), {
@@ -47,9 +47,9 @@ ggplot(out_long, aes(x=time, y=value, group=name, colour=name)) +
 out$total_I = out$I1 + out$I2
 
 out_long = pivot_longer(out, cols=c(4,5))
-ggplot(out_long, aes(x=time, y=total_I, group=name, colour='Simulated')) +
-    geom_line() +
-    geom_line(data=data, aes(x=nr, y=value, color='Real Data')) +
+ggplot() +
+    geom_line(data=out_long, aes(x=time, y=total_I, group=name, colour='Simulated')) +
+    geom_line(data=zika_yap_2007, aes(x=nr, y=value, color='Real Data')) +
     theme_minimal() +
     xlab("Days Elapsed") +
     ylab("Number of individuals") +
