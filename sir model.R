@@ -24,7 +24,7 @@ sir_model <- function(times, state, parameters) {
 
 # set initial conditions, parameters, sequence of time points for solving the model
 init = c(S = 7390, I = 1, R = 0)
-parameters = c(beta = (R_0*0.2*7)/7391, gamma = 7/5)
+parameters = c(beta = (R_0*0.2)/7391, gamma = 1/5)
 times = seq(0, 60, length.out=1000)
 
 # solve the SIR model using initial conditions, parameters and time frame defined above
