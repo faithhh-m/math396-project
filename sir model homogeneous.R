@@ -1,4 +1,4 @@
-# begin coding SIR model with homogeneity
+# begin coding SIR model with homogeneity, introduce stratification into low and high contact rate
 
 sir_model <- function(times, state, parameters) {
   
