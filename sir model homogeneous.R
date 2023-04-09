@@ -25,7 +25,7 @@ sir_model <- function(times, state, parameters) {
 
 init = c(S1 = 3695, S2 = 3694, I1 = 1, I2 = 1, R1 = 0, R2 = 0) 
 # split population into half for initial susceptibles?
-parameters = c(beta11 = 7/19450, beta12 = 7/38900, beta22 = (3.8*0.2)/7391, gamma = 7/5)
+parameters = c(beta11 = 7/19450, beta12 = 7/38900, beta22 = (3.8*0.2*7)/7391, gamma = 7/5)
 times = seq(0, 200, length.out=1000)
 
 out = ode(y = init, times = times, func = sir_model, parms = parameters)
