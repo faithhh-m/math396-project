@@ -9,12 +9,12 @@ sir_model <- function(times, state, parameters) {
     with(as.list(c(state, parameters)), {
         
         N = S1 + S2 + I1 + I2 + R1 + R2
-        dS1 <- -beta11 * S1 * I1 + beta12 * S1 * I2
-        dS2 <- -beta22 * S2 * I2 + beta12 * S2 * I1
-        dI1 <-  beta11 * S1 * I1 - gamma * I1
-        dI2 <-  beta22 * S2 * I2 - gamma * I2
-        dR1 <-                     gamma * I1
-        dR2 <-                     gamma * I2
+        dS1 <- -beta11 * S1 * I1 - beta12 * S1 * I2
+        dS2 <- -beta22 * S2 * I2 - beta21 * S2 * I1
+        dI1 <-  beta11 * S1 * I1 + beta12 * S1 * I2 - gamma * I1
+        dI2 <-  beta22 * S2 * I2 + beta21 * S2 * I1 - gamma * I2
+        dR1 <-                                        gamma * I1
+        dR2 <-                                        gamma * I2
         
         return(list(c(dS1, dS2, dI1, dI2, dR1, dR2)))
     })
@@ -26,8 +26,13 @@ sir_model <- function(times, state, parameters) {
 init = c(S1 = 3695, S2 = 3694, I1 = 1, I2 = 1, R1 = 0, R2 = 0) 
 # split population into half for initial susceptibles?
 
-parameters = c(beta11 = 7/19450, beta12 = 7/38900, beta22 = (3.8*0.2*7)/7391, gamma = 7/5)
-times = seq(0, 60, length.out=1000)
+parameters = c(beta11 = 0.5/9725,
+               beta12 = 0.025/9725,
+               beta21 = 0.025/9725,
+               beta22 = 1/9725,
+               gamma = 1/5)
+
+times = seq(0, 200, length.out=1000)
 
 out = ode(y = init, times = times, func = sir_model, parms = parameters)
 out = as.data.frame(out)
@@ -54,3 +59,4 @@ ggplot() +
     xlab("Days Elapsed") +
     ylab("Number of individuals") +
     ggtitle("SIR Model With Population Structure: Cases")
+
