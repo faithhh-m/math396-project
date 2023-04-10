@@ -49,7 +49,7 @@ ggplot(out_long, aes(x=time, y=value, group=name, colour=name)) +
   xlab("Days Elapsed") +
   ylab("Number of individuals") +
   guides(colour=guide_legend(title="Compartment")) +
-  ggtitle("SEIR model with homogeneity")
+  ggtitle("SEIR model with heterogeneity")
 
 # We are interested in the TOTAL number of infecteds
 # For each time, we should add the values for I1 and I2 in out
