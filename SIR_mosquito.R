@@ -39,7 +39,7 @@ parameters = c(beta11 = 0.5/9725,
                beta21 = 0.025/9725,
                beta22 = 1/9725,
                gamma = 1/5,
-               N_m = 200)
+               N_m = 600)
 
 times = seq(0, 200, length.out=1000)
 
