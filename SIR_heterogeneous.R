@@ -5,6 +5,13 @@ library("outbreaks")
 
 data = zika_yap_2007
 
+# keep only the rows from day 63 and onward.
+# This is because all previous weeks have 0 cases
+data = data[data$nr >= 63,]
+
+# The first case occurs on day 63, update the nr column
+data$nr = data$nr - 63
+
 # SIR model with population structure
 sir_model <- function(times, state, parameters) {
     
@@ -56,9 +63,8 @@ out$total_I = out$I1 + out$I2
 out_long = pivot_longer(out, cols=c(4,5))
 ggplot() +
     geom_line(data=out_long, aes(x=time, y=total_I, group=name, colour='Simulated')) +
-    geom_line(data=zika_yap_2007, aes(x=nr, y=value, color='Real Data')) +
+    geom_line(data=data, aes(x=nr, y=value, color='Real Data')) +
     theme_minimal() +
     xlab("Days Elapsed") +
     ylab("Number of individuals") +
     ggtitle("SIR Model With Population Structure: Cases")
-
