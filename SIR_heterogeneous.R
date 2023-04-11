@@ -32,16 +32,15 @@ sir_model <- function(times, state, parameters) {
 # set initial conditions, parameters,
 # sequence of time points for solving the model
 
-init = c(S1 = 3695, S2 = 3694, I1 = 1, I2 = 1, R1 = 0, R2 = 0) 
-# split population into half for initial susceptibles?
-
+init = c(S1 = 1200, S2 = 2800, I1 = 0, I2 = 3, R1 = 0, R2 = 0) 
+# split population into half for initial susceptibility
 parameters = c(beta11 = 0.5/9725,
                beta12 = 0.025/9725,
                beta21 = 0.025/9725,
                beta22 = 1/9725,
-               gamma = 1/5)
+               gamma = 1/4)
 
-times = seq(0, 200, length.out=1000)
+times = seq(0, 150, length.out=1000)
 
 out = ode(y = init, times = times, func = sir_model, parms = parameters)
 out = as.data.frame(out)
