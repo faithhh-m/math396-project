@@ -3,6 +3,8 @@ library(deSolve)
 library(tidyverse)
 library("outbreaks")
 
+data = zika_yap_2007
+
 # SIR model with population structure
 sir_model <- function(times, state, parameters) {
     
