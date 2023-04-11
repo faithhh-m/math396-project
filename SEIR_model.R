@@ -3,6 +3,8 @@ library(deSolve)
 library(tidyverse)
 library("outbreaks")
 
+data = zika_yap_2007
+
 # set up SEIR model
 
 seir_model <- function(times, state, parameters) {
