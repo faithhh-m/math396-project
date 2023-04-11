@@ -40,7 +40,7 @@ sir_model <- function(times, state, parameters) {
 # set initial conditions, parameters,
 # sequence of time points for solving the model
 
-init = c(S1 = 1200, S2 = 2800, I1 = 0, I2 = 3, R1 = 0, R2 = 0, S_m = 200, I_m = 1) 
+init = c(S1 = 1200, S2 = 2800, I1 = 0, I2 = 3, R1 = 0, R2 = 0, S_m = 15, I_m = 1) 
 # split population into half for initial susceptibility
 parameters = c(beta11 = 0.5/9725,
                beta12 = 0.025/9725,
