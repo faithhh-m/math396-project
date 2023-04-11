@@ -5,6 +5,13 @@ library(tidyverse)
 
 data = zika_yap_2007
 
+# keep only the rows from day 63 and onward.
+# This is because all previous weeks have 0 cases
+data = data[data$nr >= 63,]
+
+# The first case occurs on day 63, update the nr column
+data$nr = data$nr - 63
+
 # Plot the cases per week
 ggplot(data, aes(x=nr, y=value)) +
     geom_point(size=2, color='red') +
