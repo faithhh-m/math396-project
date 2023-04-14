@@ -7,6 +7,7 @@ map <- map_data("worldHires")
 yap_map <- subset(map, region == "Micronesia" & subregion == "Yap")
 
 # Create a data frame with label locations and names
+# ref: https://www.nejm.org/doi/full/10.1056/nejmoa0805715
 label_data <- data.frame(
   long = c(138.17, 138.20, 138.17, 138.14, 138.115, 138.08, 138.10, 138.071352778, 138.07),
   lati = c(9.51, 9.53, 9.57, 9.56, 9.51, 9.475, 9.465, 9.44, 9.415),
